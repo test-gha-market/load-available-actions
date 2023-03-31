@@ -2,9 +2,9 @@
 
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/devops-actions/load-available-actions/badge)](https://api.securityscorecards.dev/projects/github.com/devops-actions/load-available-actions) [![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/6813/badge)](https://bestpractices.coreinfrastructure.org/projects/6813)
 
-Load all actions stored in the current organization, by calling the REST API with an  Access Token and find the `action.yml` or `action.yaml` file in the root of all repositories in the user account or organization.
-
-The output is stored with the name `actions`, which can be retrieved in another action with `${{ steps.<step id>.outputs.actions }}`.
+!!! JUST FOR TEST PURPOSE Load all actions stored in the current organization, by calling the REST API with an  Access Token and find the `action.yml` or `action.yaml` file in the root of all repositories in the user account or organization.
+!!! JUST FOR TEST PURPOSE 
+The output is stored with the name `actions`, which can be retrieved in another action with `${{ steps.<step id>.outputs.actions }}`. !!! JUST FOR TEST PURPOSE 
 
 ## Inputs
 |Name|Description|
