@@ -21,9 +21,12 @@ inputs:
   fetchReadmes:
     description: 'Fetch readmes of actions'
     required: false
+  outputFilename:
+    description: 'Define the name of the output file'
+    required: false
 outputs:
-  actions:
-    description: 'List of all actions available in the organization or user space'  
+  actions-file-path:
+    description: 'Path to the file that contains a list of all actions available in the organization or user space'  
 runs:
   using: 'node16'
   main: 'dist/main.js'

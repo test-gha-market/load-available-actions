@@ -3,6 +3,8 @@ import {Octokit} from 'octokit'
 import YAML from 'yaml'
 import GetDateFormatted from './utils'
 import dotenv from 'dotenv'
+import fs from 'fs'
+import path from 'path'
 
 import {getReadmeContent} from './optionalActions'
 
@@ -22,6 +24,7 @@ async function run(): Promise<void> {
     const organization = getInputOrEnv('organization')
     const baseUrl = process.env.GITHUB_API_URL || 'https://api.github.com'
     const isEnterpriseServer = baseUrl !== 'https://api.github.com'
+    const outputFilename = getInputOrEnv('outputFilename') || 'actions.json'
 
     if (!PAT) {
       core.setFailed(
@@ -75,8 +78,14 @@ async function run(): Promise<void> {
       user
     }
 
+    // log the number of actions found
+    core.info(`Found [${actionFiles.length}] actions`)
     const json = JSON.stringify(output)
-    core.setOutput('actions', json)
+    fs.writeFileSync(outputFilename, json)
+    const fullPath = path.resolve(outputFilename)
+    core.info(`Writing results to [${fullPath}]`)
+
+    core.setOutput('actions-file-path', fullPath)
   } catch (error: any) {
     core.setFailed(`Error running action: : ${error.message}`)
   }
@@ -154,7 +163,12 @@ async function getAllActions(
     q: searchQuery
   })
 
-  if (searchResult) {
+  if (!searchResult) {
+    var searchType = username ? 'user' : 'organization'
+    var searchValue = username ? username : organization
+    core.info(`No actions found in the ${searchType} [${searchValue}]`)
+  }
+  else{
     for (let index = 0; index < searchResult.length; index++) {
       // todo: ratelimiting can be enabled on GHES as well, but is off by default
       // we can probably load it from an api call and see if it is enabled, or try .. catch
