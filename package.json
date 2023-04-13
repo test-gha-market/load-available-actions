@@ -3,17 +3,16 @@
   "version": "0.0.1",
   "private": false,
   "description": "GitHub Action to load all available actions for an organization or user",
-  "main": "lib/main.js",
+  "main": "dist/main.js",
   "scripts": {
     "esbuild": "esbuild src/main.ts --bundle --outdir=dist --platform=node --external:vscode --external:@vscode/test-electron --external:jest",
-    "old_build": "tsc",
+    "build": "npm run esbuild",
     "format": "prettier --write **/*.ts",
     "format-check": "prettier --check **/*.ts",
     "lint": "eslint src/**/*.ts",
     "package": "npm run esbuild",
     "test": "jest",
-    "all": "npm run esbuild && npm run test # && npm run lint",
-    "old_all": "npm run build && npm run format && npm run lint && npm run package && npm test"
+    "all": "npm run esbuild && npm run test # && npm run lint"
   },
   "repository": {
     "type": "git",
@@ -29,21 +28,22 @@
     "@actions/core": "^1.10.0",
     "moment": "^2.29.4",
     "octokit": "^2.0.14",
+    "string-sanitizer": "^2.0.2",
     "yaml": "^2.1.3"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",
-    "@typescript-eslint/parser": "^5.54.0",
+    "@typescript-eslint/parser": "^5.57.0",
     "@vercel/ncc": "^0.36.1",
     "ansi-regex": ">=5.0.1",
     "dotenv": "^16.0.3",
-    "esbuild": "^0.17.5",
-    "eslint": "^8.35.0",
-    "eslint-plugin-github": "^4.6.1",
+    "esbuild": "^0.17.14",
+    "eslint": "^8.37.0",
+    "eslint-plugin-github": "^4.7.0",
     "eslint-plugin-jest": "^27.2.1",
     "jest": "^27.5.1",
     "js-yaml": "^4.1.0",
-    "prettier": "2.8.4",
+    "prettier": "2.8.7",
     "tmpl": ">=1.0.5",
     "ts-jest": "^27.1.4",
     "typescript": "^4.9.5"
